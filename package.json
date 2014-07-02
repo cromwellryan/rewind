@@ -7,5 +7,11 @@
     "test": "jasmine-node --coffee --color spec"
   },
   "author": "Ryan Cromwell",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "phantom": "^0.6.4"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  }
 }
