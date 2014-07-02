@@ -1,0 +1,11 @@
+{
+  "name": "rewind",
+  "version": "0.0.1",
+  "description": "responsive screenshots ftw",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine-node --coffee --color spec"
+  },
+  "author": "Ryan Cromwell",
+  "license": "ISC"
+}
