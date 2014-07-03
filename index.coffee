@@ -46,6 +46,7 @@ reduceRender = (agg, next) ->
   agg.then (result) ->
     render(next)
 
+# just use iOS for now
 viewports = viewports.filter (viewport) ->
   viewport["Platform"].indexOf("iOS") == 0
 
