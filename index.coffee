@@ -33,7 +33,7 @@ render = (rendering) ->
 
   page.open site, () ->
     page.render fullpath
-    console.log "Rendering #{site} on #{rendering.device} in #{rendering.orientation} to fullpath"
+    console.log "Rendering #{site} on #{rendering.device} in #{rendering.orientation} to #{fullpath}"
     deferred.resolve
       filename: fullpath
       device: rendering.device
