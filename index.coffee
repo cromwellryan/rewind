@@ -22,23 +22,22 @@ asRendering = (viewport, orientation) ->
     orientation: orientation
   }
 
-page      = webpage.create()
 render = (rendering) ->
   deferred = Q.defer()
 
   fullpath  = "./tmp/#{rendering.filename}.png"
-  width     = rendering.width
-  height    = rendering.height
 
   page.viewportSize = page.clipRect =
-        width: width
-        height: height
+    width: rendering.width
+    height: rendering.height
 
-  page.render fullpath
-  deferred.resolve
-    filename: fullpath
-    device: rendering.device
-    orientation: rendering.orientation
+  page.open site, () ->
+    page.render fullpath
+    console.log "Rendering #{site} on #{rendering.device} in #{rendering.orientation} to fullpath"
+    deferred.resolve
+      filename: fullpath
+      device: rendering.device
+      orientation: rendering.orientation
 
   deferred.promise
 
@@ -50,13 +49,13 @@ reduceRender = (agg, next) ->
 viewports = viewports.filter (viewport) ->
   viewport["Platform"].indexOf("iOS") == 0
 
-page.open site, () ->
-  cartesianProduct(['Landscape', 'Portrait'], viewports)
-    .map((product) -> asRendering product[1], product[0])
-    .reduce(reduceRender, Q())
-    .catch () ->
-      page.close()
-      phantom.exit()
-    .done () ->
-      page.close()
-      phantom.exit()
+page = webpage.create()
+cartesianProduct(['Landscape', 'Portrait'], viewports)
+  .map((product) -> asRendering product[1], product[0])
+  .reduce(reduceRender, Q())
+  .catch () ->
+    page.close()
+    phantom.exit()
+  .done () ->
+    page.close()
+    phantom.exit()
